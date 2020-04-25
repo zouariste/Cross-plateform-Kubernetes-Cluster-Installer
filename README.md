@@ -25,15 +25,12 @@ as installs Ubuntu application packages from the Internet.
 To bring up the cluster, clone this repository to a working directory.
 
 ```
-git https://github.com/zouariste/Cross-plateform-Kubernetes-Cluster-Installer
-
+git https://github.com/zouariste/Cross-plateform-Kubernetes-Cluster-Installer.git
 ```
 Change into the working directory and `vagrant up`
 
 ```
-cd 
-
-Cross-plateform-Kubernetes-Cluster-Installer
+cd Cross-plateform-Kubernetes-Cluster-Installer
 
 vagrant up
 ```
@@ -55,15 +52,11 @@ As the cluster brought up the cluster master (**master**) will perform a `kubead
 init` and the cluster workers will perform a `kubeadmin join`. This cluster is
 using a static Kubernetes cluster token.
 
-After the `vagrant up` is complete, the following command and output should be
-visible on the cluster master (**Server-1-MASTER**).
-
+To check the node created ssh to the master node and:
 ```
-vagrant ssh Server-1-MASTER
+vagrant@Server-1-MASTER:~$ kubectl get nodes
 
-
-
-kubectl -n kube-system get po -o wide
+NAME                STATUS   ROLES    AGE   VERSION
+master              Ready    master   53m   v1.18.2
+server-1-worker-1   Ready    <none>   49m   v1.18.2
 ```
-
-~

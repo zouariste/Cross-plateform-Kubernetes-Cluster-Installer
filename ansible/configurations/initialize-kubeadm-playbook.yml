@@ -1,0 +1,5 @@
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: Initialize the Kubernetes cluster using kubeadm
+      command: kubeadm init --apiserver-advertise-address="192.168.2.50" --apiserver-cert-extra-sans="192.168.2.50" --node-name master --pod-network-cidr=192.168.0.0/16

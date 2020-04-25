@@ -1,0 +1,1 @@
+kubeadm join 192.168.2.50:6443 --token zibz4z.moak92qcx6wx8hi5     --discovery-token-ca-cert-hash sha256:648358085ebe6c8d9dc6d9b7d0ae60f9fdf881f501b44b75e78e18417552bca4 

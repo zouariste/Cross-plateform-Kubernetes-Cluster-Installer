@@ -1,0 +1,19 @@
+- hosts: localhost 
+  become: yes
+  tasks:
+  - name: Download Docker installer
+    get_url: url=https://get.docker.com dest=/tmp/docker-installer.sh
+
+  - name: Make docker-installer.sh executable
+    file: dest=/tmp/docker-installer.sh mode=a+x
+
+  - name: Execute the docker-installer.sh
+    shell: /tmp/docker-installer.sh
+
+  - name: Remove the docker-installer.sh
+    file: path=/tmp/docker-installer.sh state=absent
+
+  - name: Add vagrant user to docker group
+    user:
+      name: vagrant
+      group: docker

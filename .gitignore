@@ -1,0 +1,4 @@
+admin.conf
+.vagrant
+*.retry
+*.log

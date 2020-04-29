@@ -1,4 +1,4 @@
-# -*- mode: ruby -*-
+6666# -*- mode: ruby -*-
 # # vi: set ft=ruby :
 # N : Number of nodes per hardware server
 N = 2
@@ -46,7 +46,9 @@ Vagrant.configure(2) do |config|
       s.vm.provider "virtualbox" do |v|
 
         v.name = vM_NAME
-        v.customize ['modifyvm', :id, '--nictype3', 'Am79C973']
+        v.customize ['modifyvm', :id, '--nictype3', '82543GC']
+        v.customize ['modifyvm', :id, '--nicpromisc2', 'allow-all']
+        v.customize ['modifyvm', :id, '--nictype3', '82543GC']
         v.customize ['modifyvm', :id, '--nicpromisc3', 'allow-all']
         v.memory = 2048
         v.memory = 2048
@@ -66,11 +68,11 @@ Vagrant.configure(2) do |config|
       s.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/installations/kubelet-kubeadm-kubectl-playbook.yml --extra-vars '".concat(var).concat("' -c local ")
       s.vm.network "private_network", ip: "192.168.2.#{i + m - 1}",# netmask: "255.255.255.0",
 
-      auto_config: true,
-      virtualbox__intnet: "k8s-net"       
+      auto_config: true       
 
 
-      s.vm.network "public_network", bridge: "Intel(R) Ethernet Connection I217-LM", ip: "192.168.2.#{i + m -1}",# netmask: "255.255.255.0",
+      s.vm.network "public_network", bridge: "Intel(R) Ethernet Connection I217-LM", ip: "192.168.2.#{i + m -1}", :mac => "0800271b46fa",
+# netmask: "255.255.255.0"
 
       auto_config: true
 
@@ -83,7 +85,7 @@ Vagrant.configure(2) do |config|
         s.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/connections/join-command-playbook.yml"
 
       else
-
+444
         s.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/connections/join-nodes-playbook.yml"      
 
       end

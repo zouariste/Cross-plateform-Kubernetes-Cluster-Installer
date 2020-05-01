@@ -1,4 +1,4 @@
-6666# -*- mode: ruby -*-
+# -*- mode: ruby -*-
 # # vi: set ft=ruby :
 # N : Number of nodes per hardware server
 N = 2
@@ -46,9 +46,9 @@ Vagrant.configure(2) do |config|
       s.vm.provider "virtualbox" do |v|
 
         v.name = vM_NAME
-        v.customize ['modifyvm', :id, '--nictype3', '82543GC']
+        v.customize ['modifyvm', :id, '--nictype3', '82540EM']
+        v.customize ['modifyvm', :id, '--nicpromisc1', 'allow-all']
         v.customize ['modifyvm', :id, '--nicpromisc2', 'allow-all']
-        v.customize ['modifyvm', :id, '--nictype3', '82543GC']
         v.customize ['modifyvm', :id, '--nicpromisc3', 'allow-all']
         v.memory = 2048
         v.memory = 2048
@@ -71,14 +71,15 @@ Vagrant.configure(2) do |config|
       auto_config: true       
 
 
-      s.vm.network "public_network", bridge: "Intel(R) Ethernet Connection I217-LM", ip: "192.168.2.#{i + m -1}", :mac => "0800271b46fa",
-# netmask: "255.255.255.0"
-
-      auto_config: true
 
       # Master Node
       if i == 1 and SERVER == 1
+        
+        
+      s.vm.network "public_network", bridge: "Intel(R) Ethernet Connection I217-LM", #ip: "192.168.0.#{i + m -1}", :mac => "0800271b46fa",
+# netmask: "255.255.255.0"
 
+      auto_config: true
         s.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/configurations/initialize-kubeadm-playbook.yml"
         s.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/configurations/vagrant-user-config-playbook.yml"
         s.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/connections/networking-provider-playbook.yml"

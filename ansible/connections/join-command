@@ -1,1 +1,0 @@
-kubeadm join 192.168.0.25:6443 --token 9y3wpd.uvmeryzs7ymirwvo     --discovery-token-ca-cert-hash sha256:5e2efcb3375b4ab6df408c9c8697693c12b1c9c4c53175d7604f3c9c3171fbaa 

@@ -5,8 +5,6 @@
       shell: ifconfig enp0s9 | grep "inet addr" | tr -s " " | cut -d " " -f 3 | cut -d ":" -f 2
       register: public_ip
 
-
-
     - name: Initialize the Kubernetes cluster using kubeadm
       become: true
       shell: sudo kubeadm init --apiserver-advertise-address=192.168.2.50 --apiserver-cert-extra-sans=192.168.2.50 --control-plane-endpoint={{ item }} --node-name master --pod-network-cidr=192.168.0.0/16

@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # # vi: set ft=ruby :
 # N : Number of nodes per hardware server
-N = 1
+N = 2
 IMAGE_NAME = "ubuntu/xenial64"
 IMAGE_NAME2 = "debian/stretch64"
 
@@ -12,7 +12,7 @@ SERVER = 1
 m = 50 + ( SERVER - 1 ) * 10
 
 # MasterNode Public IP Address
-IPADDRESS = "192.168.1.13"
+IPADDRESS = ""
 
 Vagrant.configure(2) do |config|
 
@@ -84,15 +84,20 @@ Vagrant.configure(2) do |config|
         else
           s.vm.network "public_network", bridge: "Intel(R) Ethernet Connection I217-LM", ip: IPADDRESS, auto_config: true
 
+        end
+
         s.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/configurations/initialize-kubeadm-playbook.yml"
         s.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/configurations/vagrant-user-config-playbook.yml"
         s.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/connections/networking-provider-playbook.yml"
         s.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/connections/join-command-playbook.yml"
+        s.vm.provision :shell, inline: "sudo PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/configurations/kubeconfig-master-playbook.yml"      
 
-        end
+
+        
 
       else
-        
+                
+        s.vm.provision :shell, inline: "sudo PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/configurations/kubeconfig-nodes-playbook.yml"      
         s.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/connections/join-nodes-playbook.yml"      
 
       end

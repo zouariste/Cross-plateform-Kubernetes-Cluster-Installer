@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx-ingress-resource
+spec:
+  rules:
+  - host: sioth.cluster.example
+    http:
+      paths:
+      - backend:
+          serviceName: nginx-deploy
+          servicePort: 80

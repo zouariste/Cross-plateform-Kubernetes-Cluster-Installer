@@ -2,3 +2,5 @@ admin.conf
 .vagrant
 *.retry
 *.log
+SHARED
+ansible\connections\join-command

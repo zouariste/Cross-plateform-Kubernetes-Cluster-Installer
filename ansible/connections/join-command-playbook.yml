@@ -15,7 +15,7 @@
       delegate_to: localhost
       copy:
         content: "{{ join_command.stdout_lines[0] }}"
-        dest: ../../JOIN/join-command
+        dest: ../../SHARED/join-command
 
 
 

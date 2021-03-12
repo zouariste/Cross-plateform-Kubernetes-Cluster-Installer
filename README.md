@@ -1,16 +1,16 @@
 # Cross-plateform-Kubernetes-Cluster-Installer
 
 The goal of this project is to build an automated distributed, scalable kubernetes cluster to deploy projects on it.
-The challenge is that that environment is multi-node and multi-machine.
+**A multi-node and multi-machine Cluster.**
 
 This project contains a `Vagrantfile` and associated `Ansible` playbook scripts
 to provisioning Kubernetes' cluster using `VirtualBox` as provider.
 
 Different Vms are created, provisionned with a specific Os system.
 
-I've used ansible as provision system, to auto-configure the Vms as master or worker.
+Ansible is used as provision system, to auto-configure the Vms as master or worker.
 
-Ansible is only Linus compatible, that's why, the ansible was installed into the different Vms.
+Ansible is only Linux compatible, that's why, the ansible was installed into the different Vms.
 And executed into it to install the required tools, and run the approprite script.
 
 ### Prerequisites
